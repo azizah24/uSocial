@@ -1,5 +1,11 @@
 # uSocial
 Aplikasi Media Sosial realtime untuk berinteraksi menggunakan firebase.
+dengan menu :
+- Menu Login
+- Menu Home (Isi Postingan User)
+- Menu Chat
+- Menu Akun
+- Menu Pemberitahuan Post dan Like
 
 # Tampilan Aplikasi
 <p align="center">
