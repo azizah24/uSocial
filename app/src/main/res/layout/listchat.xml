@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dpgamba"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/viewv"
+            android:src="@drawable/ic_usr_name" />
+
+
+        <TextView
+            android:id="@+id/nametvchat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewv"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/dpgamba"
+            android:fontFamily="@font/fira_sans"
+            android:text="Nama dia"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/isichat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nametvchat"
+            android:layout_marginStart="5dp"
+            android:maxLines="1"
+            android:layout_toEndOf="@id/dpgamba"
+            android:fontFamily="@font/fira_sans_light"
+            android:text="Chat"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/viewv"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BEE3F3" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

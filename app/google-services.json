@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "147789248252",
+    "firebase_url": "https://msocial-ec876.firebaseio.com",
+    "project_id": "msocial-ec876",
+    "storage_bucket": "msocial-ec876.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147789248252:android:b0b9f6874f8237accfc979",
+        "android_client_info": {
+          "package_name": "com.azizah.msocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147789248252-elts6ofqbifsslldchn5sh50k75lo9cv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.azizah.msocial",
+            "certificate_hash": "22d175fb43ed564a3705bc7fc73d1820abca1cd4"
+          }
+        },
+        {
+          "client_id": "147789248252-taqmt9d4aek86m8l9tktncnsa3e78s1n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCymPCyRd1Gn68Q1X84J1W9SKrNUlEAjDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147789248252-taqmt9d4aek86m8l9tktncnsa3e78s1n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

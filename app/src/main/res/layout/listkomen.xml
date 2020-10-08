@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="1dp"
+    app:contentPadding="2dp"
+    app:cardBackgroundColor="#FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/avatargam"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_usr_name"
+            />
+
+        <TextView
+            android:id="@+id/nametv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/avatargam"
+            android:fontFamily="@font/fira_sans"
+            android:text="Azizah"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/komentv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nametv"
+            android:layout_toEndOf="@id/avatargam"
+            android:fontFamily="@font/fira_sans_light"
+            android:text="Komentar"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/timetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/komentv"
+            android:layout_toEndOf="@id/avatargam"
+            android:text="tanggal dan jam"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

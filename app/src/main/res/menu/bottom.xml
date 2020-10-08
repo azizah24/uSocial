@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navhome"
+          android:title="Home"
+         android:icon="@drawable/ic_home_name"/>
+    <item android:id="@+id/navprof"
+        android:title="Akun Saya"
+        android:icon="@drawable/ic_acc_name"/>
+    <item android:id="@+id/navpengg"
+        android:title="Pengguna"
+        android:icon="@drawable/ic_pg_name"/>
+    <item android:id="@+id/navcht"
+        android:title="Pesan"
+        android:icon="@drawable/ic_cht_name"/>
+    <item android:id="@+id/navaktif"
+        android:title="Aktivitas"
+        android:icon="@drawable/ic_aktiv"/>
+</menu>
