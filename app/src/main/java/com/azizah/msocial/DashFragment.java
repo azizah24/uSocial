@@ -166,8 +166,11 @@ public class DashFragment extends Fragment {
             firebaseauth.signOut();
             checkuser();
         }
-        if(id==R.id.create){
+        else if(id==R.id.create){
           startActivity(new Intent(getActivity(), Addpost.class));
+        }
+        else if(id==R.id.pengaturan){
+            startActivity(new Intent(getActivity(), PengaturanAct.class));
         }
         return super.onOptionsItemSelected(item);
     }

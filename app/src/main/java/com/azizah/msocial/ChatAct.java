@@ -103,6 +103,7 @@ public class ChatAct extends AppCompatActivity {
     String[] storagepermis;
     Uri image_uri = null;
     boolean isBlocked = false;
+    String notificationType;
     Toolbar toolbar;
 
     @Override
@@ -515,6 +516,7 @@ public class ChatAct extends AppCompatActivity {
         hashMap.put("seen", false);
         hashMap.put("timestamp", timestamp);
         hashMap.put("type", "text");
+        hashMap.put("notificationType", "ChatNotification");
         databaseReference.child("Chats").push().setValue(hashMap);
 
 
@@ -528,7 +530,7 @@ public class ChatAct extends AppCompatActivity {
 
 
                 if(notify){
-                    sendnotif(hisUid, user.getName(), pesan);
+                    sendnotif(hisUid, user.getName(), pesan, notificationType);
                 }
                 notify = false;
 
@@ -618,6 +620,7 @@ public class ChatAct extends AppCompatActivity {
                             hashMap.put("seen", false);
                             hashMap.put("timestamp", timestamp);
                             hashMap.put("type", "image");
+                            hashMap.put("notificationType", "ChatNotification");
 
 
                             databaseReference.child("Chats").push().setValue(hashMap);
@@ -629,7 +632,7 @@ public class ChatAct extends AppCompatActivity {
 
                                     DataUser dataUser = dataSnapshot.getValue(DataUser.class);
                                     if(notify){
-                                        sendnotif(hisUid, dataUser.getName(), "Mengirimkan Gambar...");
+                                        sendnotif(hisUid, dataUser.getName(), "Mengirimkan Gambar...", "ChatNotification");
                                     }
                                     notify = false;
 
@@ -690,7 +693,7 @@ public class ChatAct extends AppCompatActivity {
 
     }
 
-    private void sendnotif(final String hisUid, final String name, final String pesan) {
+    private void sendnotif(final String hisUid, final String name, final String pesan, final String notificationType) {
 
         DatabaseReference alltoken = FirebaseDatabase.getInstance().getReference("Tokens");
         Query query = alltoken.orderByKey().equalTo(hisUid);
@@ -700,8 +703,13 @@ public class ChatAct extends AppCompatActivity {
 
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     Tokenclass tokenclass = ds.getValue(Tokenclass.class);
-                    Datanotif data = new Datanotif(myUid, name, pesan, R.drawable.ic_stat_name, hisUid);
-                    Notifikasi notification = new Notifikasi(myUid, name, pesan, R.drawable.ic_stat_name, hisUid);
+                    Datanotif data = new Datanotif(myUid, name, pesan, R.drawable.ic_stat_name, hisUid, notificationType);
+                    Notifikasi notification = new Notifikasi(""+myUid,
+                            "Pesan Baru",
+                            ""+name +": "+ pesan,
+                             R.drawable.ic_stat_name,
+                            ""+hisUid,
+                            "ChatNotification");
                     Pengirim pengirim = new Pengirim(data, tokenclass.getToken(), notification);
 
                     try{

@@ -2,20 +2,28 @@ package com.azizah.msocial;
 
 public class Datanotif {
 
-    private String user, body, title, sent;
+    private String user, body, title, sent, notificationType;
     private Integer icon;
 
-
-    public Datanotif(String user, String title, String body, Integer icon,  String sent) {
+    public Datanotif(String user, String title, String body, Integer icon,  String sent, String notificationType) {
         this.user = user;
         this.body = body;
         this.title = title;
         this.sent = sent;
         this.icon = icon;
+        this.notificationType = notificationType;
     }
 
     public Datanotif() {
 
+    }
+
+    public String getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
     }
 
     public String getUser() {

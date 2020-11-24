@@ -166,6 +166,9 @@ RecyclerView chatrv;
             firebaseauth.signOut();
             checkuser();
         }
+        else if(id==R.id.pengaturan){
+            startActivity(new Intent(getActivity(), PengaturanAct.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 

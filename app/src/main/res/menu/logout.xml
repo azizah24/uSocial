@@ -5,6 +5,9 @@
     <item android:id="@+id/logout"
         android:title="Logout"/>
 
+    <item android:id="@+id/pengaturan"
+        android:title="Settings"/>
+
     <item android:id="@+id/searchin"
         android:title="Search"
         android:icon="@drawable/ic_src_name"

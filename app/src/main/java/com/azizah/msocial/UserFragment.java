@@ -177,6 +177,9 @@ public class UserFragment extends Fragment {
             firebaseauth.signOut();
             checkuser();
         }
+        else if(id==R.id.pengaturan){
+            startActivity(new Intent(getActivity(), PengaturanAct.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -2,18 +2,19 @@ package com.azizah.msocial;
 
 public class Notifikasi {
 
-    String user, body, title, sent;
+    String user, body, title, sent, notificationType;
     Integer icon;
 
     public Notifikasi() {
     }
 
-    public Notifikasi(String user, String title, String body, Integer icon, String sent) {
+    public Notifikasi(String user, String title, String body, Integer icon, String sent, String notificationType) {
         this.user = user;
         this.body = body;
         this.title = title;
         this.sent = sent;
         this.icon = icon;
+        this.notificationType = notificationType;
     }
 
     public String getUser() {
@@ -54,5 +55,13 @@ public class Notifikasi {
 
     public void setIcon(Integer icon) {
         this.icon = icon;
+    }
+
+    public String getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
     }
 }
