@@ -452,7 +452,6 @@ public class Postdetail extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
                         progressDialog.dismiss();
                         Toast.makeText(Postdetail.this, "Komentar Ditambahkan", Toast.LENGTH_SHORT).show();
                         comenedit.setText("");
@@ -464,9 +463,7 @@ public class Postdetail extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
                         Toast.makeText(Postdetail.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        
                     }
                 });
 

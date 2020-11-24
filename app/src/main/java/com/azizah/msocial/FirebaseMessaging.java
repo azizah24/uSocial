@@ -14,8 +14,11 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
@@ -24,11 +27,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
 
 import static com.android.volley.VolleyLog.TAG;
@@ -36,6 +46,7 @@ import static com.android.volley.VolleyLog.TAG;
 public class FirebaseMessaging extends FirebaseMessagingService {
 
     private static final String ADMIN_CHANNEL_ID = "admin_channel";
+    String myUid;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -44,32 +55,30 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         SharedPreferences shr = getSharedPreferences("SP_USER", MODE_PRIVATE);
         String savedc = shr.getString("Current_USERID", "None");//
 
-        String notificationBody = remoteMessage.getNotification().getBody();
-
         String notificationType = remoteMessage.getData().get("notificationType");
 
         if (notificationType != null) {
-            if(notificationType.equals("PostNotification")){
+            if (notificationType.equals("PostNotification")) {
 
-                String sent = remoteMessage.getData().get("sender");
+                String sender = remoteMessage.getData().get("sender");
                 String pId = remoteMessage.getData().get("pId");
-                String pTitle = remoteMessage.getData().get("pDesc");
+                String pTitle = remoteMessage.getData().get("uName");
                 String pDesc = remoteMessage.getData().get("pDesc");
 
-                if(!sent.equals(savedc)){
-                    shownotifpost(""+pId, ""+pTitle, ""+pDesc);
+                if (!sender.equals(savedc)) {
+
+                    shownotifpost("" + pId, "" + pTitle + " " + "add new post", "" + pDesc);
                 }
-            }
-            else if(notificationType.equals("ChatNotification")){
+            } else if (notificationType.equals("ChatNotification")) {
                 String sent = remoteMessage.getData().get("sent");
-                String user = ""+ remoteMessage.getData().get("user");
+                String user = "" + remoteMessage.getData().get("user");
                 String title = remoteMessage.getData().get("title");
                 String body = remoteMessage.getData().get("body");
                 String icon = remoteMessage.getData().get("icon");
                 RemoteMessage.Notification notification = remoteMessage.getNotification();
 
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                if(firebaseUser != null && sent != null && sent.equals(firebaseUser.getUid())) {
+                if (firebaseUser != null && sent != null && sent.equals(firebaseUser.getUid())) {
                     if (!savedc.equals(user)) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             Log.e("data notif1", user + "-" + "-" + title + "-" + body);
@@ -87,11 +96,11 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
     private void shownotifpost(String pId, String pTitle, String pDesc) {
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         int notificationID = new Random().nextInt(100);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             aturnotifpost(notificationManager);
         }
 
@@ -99,13 +108,14 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         intent.putExtra("postId", pId);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        Bitmap largeicon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_usr_name);
+        Bitmap largeicon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_stat_name);
+
 
         Uri urinotif = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notifi = new NotificationCompat.Builder(this, ""+ADMIN_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_usr_name)
+        NotificationCompat.Builder notifi = new NotificationCompat.Builder(this, "" + ADMIN_CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setLargeIcon(largeicon)
                 .setContentTitle(pTitle)
                 .setContentText(pDesc)
@@ -120,13 +130,13 @@ public class FirebaseMessaging extends FirebaseMessagingService {
     private void aturnotifpost(NotificationManager notificationManager) {
 
         CharSequence channelName = "New Notification";
-        String channeldsc= "Device to device post notification";
+        String channeldsc = "Device to device post notification";
         NotificationChannel adminchanel = new NotificationChannel(ADMIN_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_HIGH);
         adminchanel.setDescription(channeldsc);
         adminchanel.enableLights(true);
         adminchanel.enableVibration(true);
         adminchanel.setLightColor(Color.RED);
-        if(notificationManager!=null){
+        if (notificationManager != null) {
             notificationManager.createNotificationChannel(adminchanel);
         }
     }
@@ -158,13 +168,12 @@ public class FirebaseMessaging extends FirebaseMessagingService {
                 .setSmallIcon(Integer.parseInt(icon))
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent);
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 
         int j = 0;
-        if(a>0){
-            j=a;
+        if (a > 0) {
+            j = a;
         }
 
         notificationManager.notify(j, builder.build());
@@ -194,8 +203,8 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         Notification.Builder builder = notif.getnotif(title, body, pendingIntent, soundur, icon);
 
         int j = 0;
-        if(a>0){
-            j=a;
+        if (a > 0) {
+            j = a;
         }
 
         notif.getNotificationManager().notify(j, builder.build());
@@ -206,7 +215,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         super.onNewToken(s);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null){
+        if (user != null) {
 
             updateToken(s);
         }

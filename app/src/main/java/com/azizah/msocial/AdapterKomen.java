@@ -32,7 +32,7 @@ public class AdapterKomen extends RecyclerView.Adapter<AdapterKomen.Holder> {
 
     Context context;
     List<DataKomen> komenlist;
-    String myUid,postId;
+    String myUid, postId;
 
 
     public AdapterKomen(Context context, List<DataKomen> komenlist, String myUid, String postId) {
@@ -72,10 +72,9 @@ public class AdapterKomen extends RecyclerView.Adapter<AdapterKomen.Holder> {
         holder.nametv.setText(name);
         holder.komentv.setText(comment);
         holder.timetv.setText(pTime);
-        try{
+        try {
             Picasso.get().load(image).placeholder(R.drawable.ic_usr_name).into(holder.avatargam);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -83,7 +82,7 @@ public class AdapterKomen extends RecyclerView.Adapter<AdapterKomen.Holder> {
             @Override
             public void onClick(View view) {
 
-                if(myUid.equals(uid)){
+                if (myUid.equals(uid)) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
                     builder.setTitle("Hapus");
@@ -103,8 +102,7 @@ public class AdapterKomen extends RecyclerView.Adapter<AdapterKomen.Holder> {
                     });
 
                     builder.create().show();
-                }
-                else{
+                } else {
 
                     Toast.makeText(context, "Tidak dapat menghapus komentar orang lain ...", Toast.LENGTH_SHORT).show();
                 }
@@ -112,19 +110,18 @@ public class AdapterKomen extends RecyclerView.Adapter<AdapterKomen.Holder> {
         });
 
 
-
     }
 
 
-        private void hapuskomen(String cid) {
+    private void hapuskomen(String cid) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId);
         ref.child("Comments").child(cid).removeValue();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String comen = ""+ dataSnapshot.child("pComments").getValue();
+                String comen = "" + dataSnapshot.child("pComments").getValue();
                 int newcomentval = Integer.parseInt(comen) - 1;
-                ref.child("pComments").setValue(""+newcomentval);
+                ref.child("pComments").setValue("" + newcomentval);
 
             }
 
@@ -140,21 +137,16 @@ public class AdapterKomen extends RecyclerView.Adapter<AdapterKomen.Holder> {
         return komenlist.size();
     }
 
-    class Holder extends RecyclerView.ViewHolder
-
-    {
-
+    class Holder extends RecyclerView.ViewHolder {
         CircleImageView avatargam;
         TextView nametv, komentv, timetv;
 
-        public Holder(@NonNull View itemView){
+        public Holder(@NonNull View itemView) {
             super(itemView);
-
             avatargam = itemView.findViewById(R.id.avatargam);
             nametv = itemView.findViewById(R.id.nametv);
             komentv = itemView.findViewById(R.id.komentv);
             timetv = itemView.findViewById(R.id.timetv);
-
         }
     }
 

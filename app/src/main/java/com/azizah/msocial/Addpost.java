@@ -461,9 +461,10 @@ public class Addpost extends AppCompatActivity {
                                                 desket.setText("");
                                                 imageViewtv.setImageURI(null);
                                                 image_uri = null;
+
                                                 persiapannotif(""+timestamp,
-                                                        ""+name+ "add new post",
-                                                        ""+deskt,
+                                                        ""+ name +" "+ "add new post",
+                                                        ""+ deskt,
                                                         "PostNotification",
                                                         "POST");
                                             }
@@ -515,7 +516,7 @@ public class Addpost extends AppCompatActivity {
                             imageViewtv.setImageURI(null);
                             image_uri = null;
                             persiapannotif(""+timestamp,
-                                    ""+name+ "add new post",
+                                    ""+ name + " "+ "add new post",
                                     ""+deskt,
                                     "PostNotification",
                                     "POST");
@@ -530,8 +531,6 @@ public class Addpost extends AppCompatActivity {
                         }
                     });
         }
-
-
     }
 
     private void adddiaktivitas(String hisUid, String pId, String notification){
@@ -563,10 +562,10 @@ public class Addpost extends AppCompatActivity {
 
     }
 
-    private void persiapannotif(String pId, String title, String deskt, String notificationType, String notificationTopic){
+    private void persiapannotif(String pId, String name, String deskt, String notificationType, String notificationTopic){
 
         String NOTIFICATION_TOPIC = "/topics/" + notificationTopic;
-        String NOTIFICATION_TITLE = title;
+        String NOTIFICATION_TITLE = name;
         String NOTIFICATION_MESSAGE = deskt;
         String NOTIFICATION_TYPE = notificationType;
 
@@ -577,10 +576,10 @@ public class Addpost extends AppCompatActivity {
             notifbody.put("notificationType", NOTIFICATION_TYPE);
             notifbody.put("sender", uid);
             notifbody.put("pId", pId);
-            notifbody.put("pDesc", NOTIFICATION_TITLE);
+            notifbody.put("uName", NOTIFICATION_TITLE);
             notifbody.put("pDesc", NOTIFICATION_MESSAGE);
-            notifbody.put("to", NOTIFICATION_TOPIC);
-            notifjson.put("data", notifjson);
+            notifjson.put("to", NOTIFICATION_TOPIC);
+            notifjson.put("data", notifbody);
 
         } catch (JSONException e){
             Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -591,9 +590,7 @@ public class Addpost extends AppCompatActivity {
     }
 
     private void sendnotifjo(JSONObject notifjson) {
-
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https;/fcm.googleapis.com/fcm/send", notifjson,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", notifjson,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -611,7 +608,6 @@ public class Addpost extends AppCompatActivity {
         {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type","application/json");
                 headers.put("Authorization", "key=AAAAImjs9vw:APA91bFnhPsORo2XbYqFyRbisa6SMOakNMjpnR6GFfeeaAxA_qn1o4J3BjggWnL5SnOsEDTPCaNuZXdHI4ZI70GMzo7HB_pHxvEkr0iWX4w_QefCpIz2O1J71X5oyhxEw5Ak8YSRTNFx");
@@ -621,7 +617,6 @@ public class Addpost extends AppCompatActivity {
         };
 
         Volley.newRequestQueue(this).add(jsonObjectRequest);
-
     }
 
     private void showimagepick() {

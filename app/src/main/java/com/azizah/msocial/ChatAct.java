@@ -703,7 +703,7 @@ public class ChatAct extends AppCompatActivity {
 
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     Tokenclass tokenclass = ds.getValue(Tokenclass.class);
-                    Datanotif data = new Datanotif(myUid, name, pesan, R.drawable.ic_stat_name, hisUid, notificationType);
+                    Datanotif data = new Datanotif(""+myUid, "Pesan Baru", ""+name+": "+pesan, R.drawable.ic_stat_name, ""+hisUid, "ChatNotification");
                     Notifikasi notification = new Notifikasi(""+myUid,
                             "Pesan Baru",
                             ""+name +": "+ pesan,
