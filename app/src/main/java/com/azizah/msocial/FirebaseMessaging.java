@@ -67,7 +67,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
                 if (!sender.equals(savedc)) {
 
-                    shownotifpost("" + pId, "" + pTitle + " " + "add new post", "" + pDesc);
+                    shownotifpost("" + pId, "" + pTitle + " ", "" + pDesc);
                 }
             } else if (notificationType.equals("ChatNotification")) {
                 String sent = remoteMessage.getData().get("sent");
@@ -106,7 +106,8 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         Intent intent = new Intent(this, Postdetail.class);
         intent.putExtra("postId", pId);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
