@@ -727,7 +727,6 @@ public class ChatAct extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.e("JSON_RESPONSE", "onResponse: "+ error.toString());
-
                             }
                         }){
                             @Override
