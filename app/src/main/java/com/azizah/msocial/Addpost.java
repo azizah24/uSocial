@@ -610,7 +610,7 @@ public class Addpost extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type","application/json");
-                headers.put("Authorization", "key=AAAAImjs9vw:APA91bFnhPsORo2XbYqFyRbisa6SMOakNMjpnR6GFfeeaAxA_qn1o4J3BjggWnL5SnOsEDTPCaNuZXdHI4ZI70GMzo7HB_pHxvEkr0iWX4w_QefCpIz2O1J71X5oyhxEw5Ak8YSRTNFx");
+                headers.put("Authorization", "key=AAx");
 
                 return headers;
             }
